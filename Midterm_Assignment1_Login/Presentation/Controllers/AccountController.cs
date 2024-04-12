@@ -1,18 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Midterm_Assignment1_Login.Core.Models;
 using Midterm_Assignment1_Login.Presentation.ViewModels;
 
 namespace Midterm_Assignment1_Login.Presentation.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly IUserRepository _userRepository;
-
-        public AccountController(IUserRepository userRepository)
-        {
-            _userRepository = userRepository;
-        }
-
+      
         public IActionResult Login()
         {
             return View();
@@ -23,10 +16,10 @@ namespace Midterm_Assignment1_Login.Presentation.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Login logic
-                return RedirectToAction("Index", "Home"); // Redirect to home page after successful login
+    
+                return RedirectToAction("Account", "Login"); 
             }
-            return View(model); // Return the view with errors if model state is not valid
+            return View(model); 
         }
 
         public IActionResult Register()
@@ -46,9 +39,5 @@ namespace Midterm_Assignment1_Login.Presentation.Controllers
         }
     }
 
-    public interface IUserRepository
-    {
-        User GetUserByUsername(string username);
-        void CreateUser(User user);
-    }
+
 }

@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Midterm_Assignment1_Login.Infrastructure.Data;
 using Midterm_Assignment1_Login.Presentation.Controllers;
+
 
 namespace Midterm_Assignment1_Login
 {
@@ -16,12 +16,6 @@ namespace Midterm_Assignment1_Login
         }
 
         public IConfiguration Configuration { get; }
-
-        public void ConfigureServices(IServiceCollection services)
-        {
-            services.AddScoped<IUserRepository, UserRepository>(); 
-            services.AddControllersWithViews();
-        }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {

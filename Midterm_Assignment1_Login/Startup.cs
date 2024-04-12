@@ -1,10 +1,11 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿// Startup.cs
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Midterm_Assignment1_Login.Presentation.Controllers;
-
+using Midterm_Assignment1_Login.Data;
+using Midterm_Assignment1_Login.Interfaces;
 
 namespace Midterm_Assignment1_Login
 {
@@ -16,6 +17,12 @@ namespace Midterm_Assignment1_Login
         }
 
         public IConfiguration Configuration { get; }
+
+        public void ConfigureServices(IServiceCollection services)
+        {
+            services.AddSingleton<IUserRepository, UserRepository>();
+            services.AddControllersWithViews();
+        }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
@@ -40,7 +47,7 @@ namespace Midterm_Assignment1_Login
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Account}/{action=Login}/{id?}");
+                    pattern: "{controller=Account}/{action=index}/{id?}");
             });
         }
     }

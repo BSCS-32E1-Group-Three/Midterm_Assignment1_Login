@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Midterm_Assignment1_Login.Interfaces;
 using Midterm_Assignment1_Login.Models;
+using Midterm_Assignment1_Login.Presentation.ViewModels;
 
 namespace Midterm_Assignment1_Login.Controllers
 {
@@ -22,7 +23,6 @@ namespace Midterm_Assignment1_Login.Controllers
             return View();
         }
 
-
         [HttpPost]
         public IActionResult Login(string username, string password)
         {
@@ -34,6 +34,9 @@ namespace Midterm_Assignment1_Login.Controllers
             }
             ModelState.AddModelError("", "Invalid username or password.");
             return View();
+
         }
+
+
     }
 }

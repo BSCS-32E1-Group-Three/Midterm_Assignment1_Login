@@ -17,6 +17,11 @@ namespace Midterm_Assignment1_Login.Controllers
         {
             return View();
         }
+        public IActionResult Register()
+        {
+            return View();
+        }
+
 
         [HttpPost]
         public IActionResult Login(string username, string password)

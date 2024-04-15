@@ -1,7 +1,12 @@
+
+using Midterm_Assignment1_Login.Data;
+using Midterm_Assignment1_Login.Interfaces;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddSingleton<IUserRepository, UserRepository>();
 
 var app = builder.Build();
 

@@ -2,6 +2,8 @@
 using Midterm_Assignment1_Login.Interfaces;
 using Midterm_Assignment1_Login.Models;
 using Midterm_Assignment1_Login.Presentation.ViewModels;
+using BCrypt.Net;
+
 
 namespace Midterm_Assignment1_Login.Controllers
 {
@@ -22,33 +24,34 @@ namespace Midterm_Assignment1_Login.Controllers
         {
             return View();
         }
-
         [HttpPost]
         public IActionResult Login(string username, string password)
         {
             var user = _userRepository.GetUserByUsername(username);
-            if (user != null && user.Password == password)
+            if (user != null)
             {
-                // Authentication successful, redirect to dashboard or another page
-                return RedirectToAction("Index", "Home");
+                // Verify the password using bcrypt
+                if (BCrypt.Net.BCrypt.Verify(password, user.Password))
+                {
+                    // Authentication successful, redirect to dashboard or another page
+                    return RedirectToAction("Index", "Home");
+                }
             }
             ModelState.AddModelError("", "Invalid username or password.");
             return View();
-
         }
         [HttpPost]
         public IActionResult Register(RegisterViewModel model)
         {
+
             if (ModelState.IsValid)
             {
-                // Create a new user
-                var user = new User
-                {
-                    Username = model.Username,
-                    Password = model.Password // Make sure to hash and salt the password in a real application
-                };
+                // Hash the password using bcrypt before storing it
+                string hashedPassword = BCrypt.Net.BCrypt.HashPassword(model.Password);
 
-                // Add the user to the repository
+                // Create a new user with hashed password
+                var user = new User { Username = model.Username, Password = hashedPassword };
+
                 _userRepository.CreateUser(user);
 
                 // Redirect to the login page
@@ -58,6 +61,7 @@ namespace Midterm_Assignment1_Login.Controllers
             // If the model state is not valid, return the register view with the model to display validation errors
             return View(model);
         }
+
 
 
 

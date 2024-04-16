@@ -41,6 +41,7 @@ namespace Midterm_Assignment1_Login.Controllers
             ModelState.AddModelError("", "Invalid username or password.");
             return View();
         }
+        //REGISTER PR
         [HttpPost]
         public IActionResult Register(RegisterViewModel model)
         {

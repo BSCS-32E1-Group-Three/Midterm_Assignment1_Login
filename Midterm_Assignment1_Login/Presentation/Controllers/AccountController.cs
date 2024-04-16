@@ -36,6 +36,29 @@ namespace Midterm_Assignment1_Login.Controllers
             return View();
 
         }
+        [HttpPost]
+        public IActionResult Register(RegisterViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                // Create a new user
+                var user = new User
+                {
+                    Username = model.Username,
+                    Password = model.Password // Make sure to hash and salt the password in a real application
+                };
+
+                // Add the user to the repository
+                _userRepository.CreateUser(user);
+
+                // Redirect to the login page
+                return RedirectToAction("Login");
+            }
+
+            // If the model state is not valid, return the register view with the model to display validation errors
+            return View(model);
+        }
+
 
 
     }

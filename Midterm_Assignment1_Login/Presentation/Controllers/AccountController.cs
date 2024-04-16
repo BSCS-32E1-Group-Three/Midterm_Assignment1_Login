@@ -24,6 +24,7 @@ namespace Midterm_Assignment1_Login.Controllers
         {
             return View();
         }
+        //LOGIN PR
         [HttpPost]
         public IActionResult Login(string username, string password)
         {
